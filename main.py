@@ -25,9 +25,8 @@ radio = RFM9x(
 
 msg = b"hello"
 while True:
-    print(f"sending: {msg}")
-    print("...")
+    print(f"sending...\nmessage: {msg}")
     radio.send(b'hello')
     time.sleep(2)
-    print("recieving...")
+    print("receiving...")
     radio.receive()
