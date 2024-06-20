@@ -1,4 +1,5 @@
 import busio
+import time
 import board
 import digitalio
 import asyncio
@@ -24,4 +25,6 @@ radio = RFM9x(
 )
 
 # radio.dio0 = radio_DIO0
-radio.send(b'hello')
+while True:
+    radio.send(b'hello')
+    time.sleep(2)
