@@ -1,0 +1,8 @@
+# MacOS files
+.DS_Store
+
+# vscode settings
+.vscode
+
+#pycache files
+*.pyc
