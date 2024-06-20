@@ -2,7 +2,6 @@ import busio
 import time
 import board
 import digitalio
-import asyncio
 from lib.rfm9x import RFM9x
 
 spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
@@ -24,7 +23,11 @@ radio = RFM9x(
     baudrate=5000000
 )
 
-# radio.dio0 = radio_DIO0
+msg = b"hello"
 while True:
+    print(f"sending: {msg}")
+    print("...")
     radio.send(b'hello')
     time.sleep(2)
+    print("recieving...")
+    radio.receive()
