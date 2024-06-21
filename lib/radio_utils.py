@@ -55,7 +55,7 @@ def unpack_message(msg):
     header_info = header_info.encode('utf-8')
     payload = f"Payload: {msg.message}\n\n"
     payload = payload.encode('utf-8')
-    (ack, msg_id, msg_seq_count, msg_size) = unpack_header()
+    (ack, msg_id, msg_seq_count, msg_size) = unpack_header(msg)
     print(header_info)
     if msg_id == Definitions.SAT_HEARTBEAT_BATT:
         print("battery heartbeat")
