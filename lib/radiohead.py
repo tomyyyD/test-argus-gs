@@ -17,13 +17,14 @@ class RadioHead:
         self.rx_ctrl.on()
         self.radio.set_mode_rx()
         self.receive_success = False
-        start = time.monotonic()
-        timed_out = False
-        while not self.receive_success and not timed_out:
-            if (time.monotonic() - start) >= self.receive_timeout:
-                timed_out = True
-        if timed_out:
-            return None
+        # start = time.monotonic()
+        # timed_out = False
+        while not self.receive_success:
+            time.sleep(0.1)
+        #     if (time.monotonic() - start) >= self.receive_timeout:
+        #         timed_out = True
+        # if timed_out:
+        #     return None
         return self.last_payload
 
     def on_recv(self, payload):
