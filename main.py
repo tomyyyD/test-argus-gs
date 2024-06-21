@@ -1,32 +1,9 @@
-import busio
-import time
-import board
-import digitalio
-from lib.rfm9x import RFM9x
+from lib.argus_lora import LoRa, ModemConfig
+from lib.radiohead import RadioHead
 
-spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+radio = LoRa(0, 19, 25, modem_config=ModemConfig.Bw125Cr45Sf128, acks=False, freq=915)
 
-cs = digitalio.DigitalInOut(board.D8)
-reset = digitalio.DigitalInOut(board.D25)
+radiohead = RadioHead(radio, 1)
 
-cs.switch_to_output(value=True)
-reset.switch_to_output(value=True)
-
-# radio_DIO0 = digitalio.DigitalInOut(board.RF_IO0)
-# radio_DIO0.switch_to_input()
-
-radio = RFM9x(
-    spi,
-    cs,
-    reset,
-    433.0,
-    baudrate=5000000
-)
-
-msg = b"hello"
 while True:
-    print(f"sending...\nmessage: {msg}")
-    radio.send(b'hello')
-    time.sleep(2)
-    print("receiving...")
-    radio.receive()
+    radiohead.receive_message()
