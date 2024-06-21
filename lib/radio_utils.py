@@ -7,7 +7,7 @@ def hard_exit(radio, signum, fram):
     sys.exit(0)
 
 
-def unpack_message(self, msg):
+def unpack_message(msg):
     # Get the current time
     current_time = datetime.datetime.now()
     # Format the current time
