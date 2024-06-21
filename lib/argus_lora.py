@@ -7,7 +7,7 @@ from random import random
 import spidev
 from gpiozero import Button
 
-from constants import Definitions
+from lib.constants import Definitions
 
 
 class ModemConfig(Enum):

@@ -6,4 +6,7 @@ radio = LoRa(0, 19, 25, modem_config=ModemConfig.Bw125Cr45Sf128, acks=False, fre
 radiohead = RadioHead(radio, 1)
 
 while True:
-    radiohead.receive_message()
+    print("receiving...")
+    msg = radiohead.receive_message()
+    if msg is not None:
+        print(msg)
