@@ -14,4 +14,4 @@ while True:
     msg = radiohead.receive_message()
     if msg is not None:
         print(msg)
-        print(unpack_message)
+        print(unpack_message(msg))
