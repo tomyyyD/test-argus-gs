@@ -15,8 +15,8 @@ class RadioHead:
 
     def receive_message(self) -> bytes:
         self.rx_ctrl.on()
-        self.radio.set_mode_rx()
         self.receive_success = False
+        self.radio.set_mode_rx()
         # start = time.monotonic()
         # timed_out = False
         while not self.receive_success:
@@ -25,6 +25,7 @@ class RadioHead:
         #         timed_out = True
         # if timed_out:
         #     return None
+        self.rx_ctrl.off()
         return self.last_payload
 
     def on_recv(self, payload):
