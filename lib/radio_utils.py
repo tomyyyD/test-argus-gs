@@ -58,7 +58,7 @@ def unpack_message(msg):
     (ack, msg_id, msg_seq_count, msg_size) = unpack_header(msg)
     system_status = f"{msg.message[5]}, {msg.message[6]}"
     print(system_status)
-    data = msg.message[6:]
+    data = list(msg.message[6:])
     print(header_info)
     if msg_id == Definitions.SAT_HEARTBEAT_BATT:
         print("battery heartbeat")
