@@ -81,7 +81,7 @@ def unpack_message(msg):
         print(f"boot count: {boot_count}")
         print(f"time: {time}")
     elif msg_id == Definitions.SAT_HEARTBEAT_SUN:
-        print("IMU heartbeat")
+        print("sun heartbeat")
         """
         byte 0: sun vector x
         byte 1: sun vector y
@@ -99,4 +99,4 @@ def unpack_message(msg):
         print(f"sun vector: ({sun_vec_x}, {sun_vec_y}, {sun_vec_z})")
         print(f"time: {time}")
     elif msg_id == Definitions.SAT_HEARTBEAT_IMU:
-        print("sun heartbeat")
+        print("imu heartbeat")
