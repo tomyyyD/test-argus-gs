@@ -56,6 +56,7 @@ def unpack_message(msg):
     payload = f"Payload: {msg.message}\n\n"
     payload = payload.encode('utf-8')
     (ack, msg_id, msg_seq_count, msg_size) = unpack_header(msg)
+    data = msg.message[4:]
     print(header_info)
     if msg_id == Definitions.SAT_HEARTBEAT_BATT:
         print("battery heartbeat")
@@ -69,13 +70,13 @@ def unpack_message(msg):
         byte 6: time mid low
         byte 7: time low
         """
-        batt_soc = msg.message[7]
-        current = msg.message[6] << 8 | msg.message[5]
-        boot_count = msg.message[4]
-        time = (msg.message[3] << 24 |
-                msg.message[2] << 16 |
-                msg.message[1] << 8 |
-                msg.message[0])
+        batt_soc = data[0]
+        current = data[1] << 8 | data[2]
+        boot_count = data[3]
+        time = (data[4] << 24 |
+                data[5] << 16 |
+                data[6] << 8 |
+                data[7])
         print(f"battery soc: {batt_soc}")
         print(f"current: {current}")
         print(f"boot count: {boot_count}")
@@ -88,14 +89,14 @@ def unpack_message(msg):
         byte 2: sun vector 1
         bytes 3-6: time
         """
-        sun_vec_x = msg.message[7]
-        sun_vec_y = msg.message[6]
-        sun_vec_z = msg.message[5]
+        sun_vec_x = data[0]
+        sun_vec_y = data[1]
+        sun_vec_z = data[2]
 
-        time = (msg.message[4] << 24 |
-                msg.message[3] << 16 |
-                msg.message[2] << 8 |
-                msg.message[1])
+        time = (data[4] << 24 |
+                data[5] << 16 |
+                data[6] << 8 |
+                data[7])
         print(f"sun vector: ({sun_vec_x}, {sun_vec_y}, {sun_vec_z})")
         print(f"time: {time}")
     elif msg_id == Definitions.SAT_HEARTBEAT_IMU:
