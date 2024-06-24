@@ -86,19 +86,19 @@ def unpack_message(msg):
     elif msg_id == Definitions.SAT_HEARTBEAT_SUN:
         print("sun heartbeat")
         """
-        byte 0: sun vector x
-        byte 1: sun vector y
-        byte 2: sun vector 1
-        bytes 3-7: time
+        byte 0-4: sun vector x
+        byte 4-8: sun vector y
+        byte 8-12: sun vector 1
+        bytes 12-16: time
         """
-        sun_vec_x = convert_floating_point_hp(data[0])
-        sun_vec_y = convert_floating_point_hp(data[1])
-        sun_vec_z = convert_floating_point_hp(data[2])
+        sun_vec_x = convert_floating_point_hp(data[0:4])
+        sun_vec_y = convert_floating_point_hp(data[4:8])
+        sun_vec_z = convert_floating_point_hp(data[8:12])
 
-        time: int = (data[4] << 24 |
-                     data[5] << 16 |
-                     data[6] << 8 |
-                     data[7])
+        time: int = (data[12] << 24 |
+                     data[13] << 16 |
+                     data[14] << 8 |
+                     data[15])
         print(f"sun vector: ({sun_vec_x}, {sun_vec_y}, {sun_vec_z})")
         print(f"time: {time}")
     elif msg_id == Definitions.SAT_HEARTBEAT_IMU:
