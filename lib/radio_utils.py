@@ -59,7 +59,44 @@ def unpack_message(msg):
     print(header_info)
     if msg_id == Definitions.SAT_HEARTBEAT_BATT:
         print("battery heartbeat")
-    elif msg_id == Definitions.SAT_HEARTBEAT_IMU:
-        print("IMU heartbeat")
+        """
+        byte 0: batt_soc
+        byte 1: current msb
+        byte 2: current lsb
+        byte 3: boot count
+        byte 4: time high
+        byte 5: time mid high
+        byte 6: time mid low
+        byte 7: time low
+        """
+        batt_soc = msg.message[0]
+        current = msg.message[1] << 8 | msg.message[2]
+        boot_count = msg.message[3]
+        time = (msg.message[4] << 24 |
+                msg.message[5] << 16 |
+                msg.message[6] << 8 |
+                msg.message[7])
+        print(f"battery soc: {batt_soc}")
+        print(f"current: {current}")
+        print(f"boot count: {boot_count}")
+        print(f"time: {time}")
     elif msg_id == Definitions.SAT_HEARTBEAT_SUN:
+        print("IMU heartbeat")
+        """
+        byte 0: sun vector x
+        byte 1: sun vector y
+        byte 2: sun vector 1
+        bytes 3-6: time
+        """
+        sun_vec_x = msg.message[0]
+        sun_vec_y = msg.message[1]
+        sun_vec_z = msg.message[2]
+
+        time = (msg.message[4] << 24 |
+                msg.message[5] << 16 |
+                msg.message[6] << 8 |
+                msg.message[7])
+        print(f"sun vector: ({sun_vec_x}, {sun_vec_y}, {sun_vec_z})")
+        print(f"time: {time}")
+    elif msg_id == Definitions.SAT_HEARTBEAT_IMU:
         print("sun heartbeat")
