@@ -1,4 +1,4 @@
-from passwords import CONNECTION_STRING
+from lib.passwords import CONNECTION_STRING
 from pymongo.mongo_client import MongoClient
 from lib.constants import Message_IDS
 
