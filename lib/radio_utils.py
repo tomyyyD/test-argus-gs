@@ -1,34 +1,5 @@
 import datetime
-import sys
-
-
-class Definitions:
-    # Message ID definitions
-    SAT_HEARTBEAT_BATT = 0x00
-    SAT_HEARTBEAT_SUN = 0x01
-    SAT_HEARTBEAT_IMU = 0x02
-    SAT_HEARTBEAT_GPS = 0x03
-    SAT_HEARTBEAT_JETSON = 0x04
-
-    GS_ACK = 0x08
-    SAT_ACK = 0x09
-
-    GS_OTA_REQ = 0x14
-    SAT_OTA_RES = 0x15
-
-    SAT_IMG_INFO = 0x21
-    SAT_DEL_IMG = 0x22
-
-    GS_STOP = 0x30
-
-    SAT_IMG_CMD = 0x50
-
-    REQ_ACK_NUM = 0x80
-
-
-def hard_exit(radio, signum, fram):
-    radio.close()
-    sys.exit(0)
+from constants import Message_IDS
 
 
 def unpack_header(msg):
@@ -60,7 +31,7 @@ def unpack_message(msg):
     print(system_status)
     data = list(msg.message[6:])
     print(header_info)
-    if msg_id == Definitions.SAT_HEARTBEAT_BATT:
+    if msg_id == Message_IDS.SAT_HEARTBEAT_BATT:
         print("battery heartbeat")
         """
         byte 0: batt_soc
@@ -83,7 +54,7 @@ def unpack_message(msg):
         print(f"current: {current}")
         print(f"boot count: {boot_count}")
         print(f"time: {time}")
-    elif msg_id == Definitions.SAT_HEARTBEAT_SUN:
+    elif msg_id == Message_IDS.SAT_HEARTBEAT_SUN:
         print("sun heartbeat")
         """
         byte 0-4: sun vector x
@@ -101,7 +72,8 @@ def unpack_message(msg):
                      (data[15] & 0xff))
         print(f"sun vector: ({sun_vec_x}, {sun_vec_y}, {sun_vec_z})")
         print(f"time: {time}")
-    elif msg_id == Definitions.SAT_HEARTBEAT_IMU:
+        return msg_id, time, (sun_vec_x, sun_vec_y, sun_vec_z)
+    elif msg_id == Message_IDS.SAT_HEARTBEAT_IMU:
         print("imu heartbeat")
         """
         byte 0-4: mag x
@@ -128,6 +100,7 @@ def unpack_message(msg):
         print(f"mag: ({mag_x}, {mag_y}, {mag_z})")
         print(f"gyro: ({gyro_x}, {gyro_y}, {gyro_z})")
         print(f"time: {time}")
+        return msg_id, time, (mag_x, mag_y, mag_z, gyro_x, gyro_y, gyro_z)
 
 
 def convert_floating_point(message_list):

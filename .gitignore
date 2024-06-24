@@ -4,5 +4,11 @@
 # vscode settings
 .vscode
 
-#pycache files
+# pycache files
 *.pyc
+
+# secrets file
+passwords.py
+
+# virtual environment
+env/
