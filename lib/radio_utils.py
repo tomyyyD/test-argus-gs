@@ -75,10 +75,10 @@ def unpack_message(msg):
         batt_soc: int = data[0]
         current: int = data[1] << 8 | data[2]
         boot_count: int = data[3]
-        time: int = (data[4] << 24 |
-                     data[5] << 16 |
-                     data[6] << 8 |
-                     data[7])
+        time: int = ((data[4] & 0xff) << 24 |
+                     (data[5] & 0xff) << 16 |
+                     (data[6] & 0xff) << 8 |
+                     (data[7] & 0xff))
         print(f"battery soc: {batt_soc}")
         print(f"current: {current}")
         print(f"boot count: {boot_count}")
@@ -95,10 +95,10 @@ def unpack_message(msg):
         sun_vec_y = convert_floating_point_hp(data[4:8])
         sun_vec_z = convert_floating_point_hp(data[8:12])
 
-        time: int = (data[12] << 24 |
-                     data[13] << 16 |
-                     data[14] << 8 |
-                     data[15])
+        time: int = ((data[12] & 0xff) << 24 |
+                     (data[13] & 0xff) << 16 |
+                     (data[14] & 0xff) << 8 |
+                     (data[15] & 0xff))
         print(f"sun vector: ({sun_vec_x}, {sun_vec_y}, {sun_vec_z})")
         print(f"time: {time}")
     elif msg_id == Definitions.SAT_HEARTBEAT_IMU:
@@ -120,10 +120,10 @@ def unpack_message(msg):
         gyro_y = convert_floating_point(data[16:20])
         gyro_z = convert_floating_point(data[20:24])
 
-        time: int = (data[24] << 24 |
-                     data[25] << 16 |
-                     data[26] << 8 |
-                     data[27])
+        time: int = ((data[24] & 0xff) << 24 |
+                     (data[25] & 0xff) << 16 |
+                     (data[26] & 0xff) << 8 |
+                     (data[27] & 0xff))
 
         print(f"mag: ({mag_x}, {mag_y}, {mag_z})")
         print(f"gyro: ({gyro_x}, {gyro_y}, {gyro_z})")
