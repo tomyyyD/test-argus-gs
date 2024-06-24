@@ -1,6 +1,6 @@
 from passwords import CONNECTION_STRING
 from pymongo.mongo_client import MongoClient
-from constants import Message_IDS
+from lib.constants import Message_IDS
 
 
 class Database:
