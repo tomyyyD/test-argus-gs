@@ -25,6 +25,7 @@ while True:
     print("receiving...")
     msg = radiohead.receive_message()
     if msg is not None:
-        print(msg)
-        type, time, data = unpack_message(msg)
-        database.upload_data(type, time, data)
+        res = unpack_message(msg)
+        if res is not None:
+            id, time, data = res
+            database.upload_data(id, time, data)

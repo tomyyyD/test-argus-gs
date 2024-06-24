@@ -54,6 +54,7 @@ def unpack_message(msg):
         print(f"current: {current}")
         print(f"boot count: {boot_count}")
         print(f"time: {time}")
+        return msg_id, time, (batt_soc, current, boot_count)
     elif msg_id == Message_IDS.SAT_HEARTBEAT_SUN:
         print("sun heartbeat")
         """
