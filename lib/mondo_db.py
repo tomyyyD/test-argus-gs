@@ -59,7 +59,7 @@ class Database:
         }
         try:
             database = self.client["heartbeats"]
-            collection = database["battery"]
+            collection = database["imu"]
             collection.insert_one(upload)
         except Exception as e:
             print(f"Could not upload imu heartbeat: {e}")
