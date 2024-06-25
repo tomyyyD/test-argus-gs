@@ -22,6 +22,10 @@ class Database:
             self.upload_imu(time, data)
         elif type == Message_IDS.SAT_HEARTBEAT_BATT:
             self.upload_batt(time, data)
+        try:
+            self.client.commit()
+        except Exception as e:
+            print(f"could not commit to table: {e}")
 
     def upload_sun(self, time, data):
         (sun_x, sun_y, sun_z) = data
