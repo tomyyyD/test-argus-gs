@@ -24,17 +24,26 @@ class Database:
         (sun_x, sun_y, sun_z) = data
         upload = (time, sun_x, sun_y, sun_z)
         sql = "INSERT INTO sun (time, x, y, z) (%s, %s, %s, %s)"
-        self.cursor.execute(sql, upload)
+        try:
+            self.cursor.execute(sql, upload)
+        except Exception as e:
+            print(f"[ERROR]: Could not upload sun heartbeat: {e}")
 
     def upload_batt(self, time, data):
         (batt_soc, current, boot_count) = data
         upload = (time, batt_soc, current, boot_count)
         sql = "INSERT INTO battery (time, batt_soc, current, boot_count)( %s, %s, %s, %s)"
-        self.cursor.execute(sql, upload)
+        try:
+            self.cursor.execute(sql, upload)
+        except Exception as e:
+            print(f"[ERROR]: Could not upload battery heartbeat: {e}")
 
     def upload_imu(self, time, data):
         (mag_x, mag_y, mag_z,
          gyro_x, gyro_y, gyro_z) = data
         upload = (time, mag_x, mag_y, mag_z, gyro_x, gyro_y, gyro_z)
         sql = "INSERT INTO imu (time, mag_x, mag_y, mag_z, gyro_x, gyro_y, gyro_z) (%s, %s, %s, %s, %s, %s)"
-        self.cursor.execute(sql, upload)
+        try:
+            self.cursor.execute(sql, upload)
+        except Exception as e:
+            print(f"[ERROR]: Could not upload imu heartbeat: {e}")
