@@ -28,9 +28,9 @@ def unpack_message(msg):
     payload = payload.encode('utf-8')
     (ack, msg_id, msg_seq_count, msg_size) = unpack_header(msg)
     system_status = f"{msg.message[5]}, {msg.message[6]}"
-    print(system_status)
     data = list(msg.message[6:])
-    print(header_info)
+    print(f"header info: {header_info}")
+    print(f"system status: {system_status}")
     if msg_id == Message_IDS.SAT_HEARTBEAT_BATT:
         print("battery heartbeat")
         """
