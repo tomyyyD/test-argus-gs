@@ -1,13 +1,14 @@
 import mysql.connector
 from lib.constants import Message_IDS
+from lib.passwords import DB_IP, DB_USER
 
 
 class Database:
     def __init__(self) -> None:
         try:
             self.client = mysql.connector.connect(
-                host="localhost",
-                user="root",
+                host=DB_IP,
+                user=DB_USER,
                 password="rexlab",
                 database="heartbeats",
             )
